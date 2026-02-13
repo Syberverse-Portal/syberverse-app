@@ -3,7 +3,6 @@
 // ============================================
 
 import { getState, subscribe, addMessage } from '../core/state.js';
-import { mockMessages } from '../data/mock-data.js';
 import { formatTime } from '../core/utils.js';
 
 const commsPanel = document.getElementById('comms');
@@ -14,26 +13,32 @@ const sendMessage = document.getElementById('sendMessage');
 
 // Initialize comms module
 export function initComms() {
+    if (!toggleComms || !sendMessage) return;
+    
     toggleComms.addEventListener('click', toggleCommsPanel);
     sendMessage.addEventListener('click', handleSendMessage);
-    messageInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') handleSendMessage();
-    });
+    
+    if (messageInput) {
+        messageInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleSendMessage();
+        });
+    }
     
     // Subscribe to state changes
     subscribe(updateMessages);
-    
-    // Load mock messages
-    renderMessages(mockMessages);
 }
 
 // Toggle comms panel visibility
 function toggleCommsPanel() {
-    commsPanel.classList.toggle('open');
+    if (commsPanel) {
+        commsPanel.classList.toggle('open');
+    }
 }
 
 // Handle sending message
 function handleSendMessage() {
+    if (!messageInput || !messageList) return;
+    
     const content = messageInput.value.trim();
     
     if (content.length === 0) return;
@@ -42,12 +47,10 @@ function handleSendMessage() {
         id: `msg_${Date.now()}`,
         sender: 'YOU',
         content: content,
-        timestamp: new Date(),
-        hasTypewriter: false
+        timestamp: new Date()
     };
     
     addMessage(newMessage);
-    renderMessages(getState().messages.length > 0 ? getState().messages : mockMessages);
     messageInput.value = '';
     
     // Auto scroll to bottom
@@ -56,14 +59,15 @@ function handleSendMessage() {
 
 // Update messages from state
 function updateMessages(state) {
-    if (state.messages.length > 0) {
+    if (state && state.messages && messageList) {
         renderMessages(state.messages);
     }
 }
 
 // Render messages
 function renderMessages(messages) {
-    // Keep existing messages, add new ones
+    if (!messageList) return;
+    
     const existingIds = new Set(
         Array.from(messageList.querySelectorAll('.message')).map(el => el.dataset.id)
     );
@@ -81,31 +85,9 @@ function renderMessages(messages) {
                 <div class="message-content">${message.content}</div>
             `;
             messageList.appendChild(messageEl);
-            
-            // Auto-scroll to new message
             messageList.scrollTop = messageList.scrollHeight;
         }
     });
 }
-
-// Load initial mock messages
-function loadInitialMessages() {
-    mockMessages.forEach(msg => {
-        const messageEl = document.createElement('div');
-        messageEl.className = 'message';
-        messageEl.dataset.id = msg.id;
-        messageEl.innerHTML = `
-            <div class="message-header">
-                <span class="message-sender">${msg.sender}</span>
-                <span class="message-time">${formatTime(msg.timestamp)}</span>
-            </div>
-            <div class="message-content">${msg.content}</div>
-        `;
-        messageList.appendChild(messageEl);
-    });
-}
-
-// Initialize with mock messages
-loadInitialMessages();
 
 export { toggleCommsPanel, handleSendMessage };
