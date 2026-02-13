@@ -1,113 +1,82 @@
 // ============================================
-// SYBERVERSE - MOCK DATA
+// DATA: MOCK DATA FOR SYBERVERSE
 // ============================================
+
+export const mockMessages = [
+    {
+        id: 'msg_001',
+        sender: 'CIPHER',
+        content: 'Neural link established. Welcome to the network.',
+        timestamp: new Date(Date.now() - 120000)
+    },
+    {
+        id: 'msg_002',
+        sender: 'GHOST',
+        content: 'Payload is ready for extraction. Coordinates locked.',
+        timestamp: new Date(Date.now() - 90000)
+    },
+    {
+        id: 'msg_003',
+        sender: 'CIPHER',
+        content: 'Security protocols activated. All systems go.',
+        timestamp: new Date(Date.now() - 60000)
+    }
+];
 
 export const mockMissions = [
     {
-        id: 1,
-        title: "DATA HEIST",
-        description: "Infiltrate corporate mainframe",
-        progress: 45,
-        status: "ACTIVE",
-        reward: 500
+        id: 'mission_001',
+        title: 'DATA EXTRACTION',
+        description: 'Retrieve encrypted files from corporate server',
+        status: 'active',
+        progress: 65,
+        reward: 2500
     },
     {
-        id: 2,
-        title: "NETWORK BREACH",
-        description: "Bypass security protocols",
-        progress: 70,
-        status: "ACTIVE",
-        reward: 750
-    },
-    {
-        id: 3,
-        title: "SYSTEM TAKEOVER",
-        description: "Seize control of AI cluster",
-        progress: 20,
-        status: "ACTIVE",
-        reward: 1200
-    },
-    {
-        id: 4,
-        title: "CODE CRACKING",
-        description: "Decrypt classified encryption",
+        id: 'mission_002',
+        title: 'FIREWALL BREACH',
+        description: 'Bypass security system in industrial zone',
+        status: 'pending',
         progress: 0,
-        status: "PENDING",
-        reward: 400
+        reward: 3500
+    },
+    {
+        id: 'mission_003',
+        title: 'SYSTEM INFILTRATION',
+        description: 'Plant backdoor in government network',
+        status: 'completed',
+        progress: 100,
+        reward: 5000
     }
 ];
 
 export const mockInventory = [
     {
-        id: 'inv_1',
-        name: 'CRYPTO_KEY',
-        type: 'software',
-        icon: 'fa-key',
-        rarity: 'rare'
+        id: 'item_001',
+        name: 'ICE BREAKER v3.2',
+        type: 'tool',
+        rarity: 'rare',
+        quantity: 1
     },
     {
-        id: 'inv_2',
-        name: 'DATA_SHARD',
-        type: 'data',
-        icon: 'fa-database',
-        rarity: 'common'
+        id: 'item_002',
+        name: 'QUANTUM KEY',
+        type: 'key',
+        rarity: 'epic',
+        quantity: 1
     },
     {
-        id: 'inv_3',
-        name: 'EXPLOIT_PACK',
-        type: 'software',
-        icon: 'fa-bomb',
-        rarity: 'epic'
+        id: 'item_003',
+        name: 'PROXY SHELL',
+        type: 'tool',
+        rarity: 'uncommon',
+        quantity: 3
     },
     {
-        id: 'inv_4',
-        name: 'FIREWALL_TOOL',
-        type: 'software',
-        icon: 'fa-shield',
-        rarity: 'rare'
-    },
-    {
-        id: 'inv_5',
-        name: 'NEURAL_CACHE',
-        type: 'hardware',
-        icon: 'fa-microchip',
-        rarity: 'legendary'
-    },
-    {
-        id: 'inv_6',
-        name: 'MEMORY_CORE',
-        type: 'hardware',
-        icon: 'fa-memory',
-        rarity: 'common'
+        id: 'item_004',
+        name: 'ENCRYPTION CHIP',
+        type: 'component',
+        rarity: 'rare',
+        quantity: 5
     }
 ];
-
-export const mockMessages = [
-    {
-        id: 'msg_1',
-        sender: 'GHOST_PROTOCOL',
-        content: 'Neural link initialized. Welcome back.',
-        timestamp: new Date(Date.now() - 300000),
-        hasTypewriter: true
-    },
-    {
-        id: 'msg_2',
-        sender: 'SYSTEM_ADMIN',
-        content: 'Security breach detected on Section 7. Investigating...',
-        timestamp: new Date(Date.now() - 180000),
-        hasTypewriter: false
-    },
-    {
-        id: 'msg_3',
-        sender: 'FIXER_ZERO',
-        content: 'Got a job for you. Interested?',
-        timestamp: new Date(Date.now() - 60000),
-        hasTypewriter: true
-    }
-];
-
-export default {
-    mockMissions,
-    mockInventory,
-    mockMessages
-};
