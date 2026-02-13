@@ -75,6 +75,7 @@ export const mockInventory = [
     {
         id: 'item_004',
         name: 'ENCRYPTION CHIP',
+        
         type: 'component',
         rarity: 'rare',
         quantity: 5
