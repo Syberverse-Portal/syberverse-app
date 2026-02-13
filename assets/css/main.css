@@ -1,0 +1,321 @@
+/* ============================================
+   SYBERVERSE - CORE STYLES
+   High-Tech, Low-Life Cyberpunk Theme
+   ============================================ */
+
+/* CSS VARIABLES (Theme Configuration) */
+:root {
+    /* Color Palette */
+    --color-bg-primary: #0a0a0a;
+    --color-bg-secondary: #1a1a1a;
+    --color-neon-green: #00ff41;
+    --color-neon-purple: #d900ff;
+    --color-neon-cyan: #00f0ff;
+    --color-text-primary: #e0e0e0;
+    --color-text-secondary: #888888;
+    --color-danger: #ff0055;
+    --color-warning: #ffaa00;
+    
+    /* Glassmorphism */
+    --glass-bg: rgba(26, 26, 26, 0.7);
+    --glass-border: rgba(0, 255, 65, 0.2);
+    
+    /* Typography */
+    --font-mono: 'Roboto Mono', 'Courier New', monospace;
+    --font-tech: 'Share Tech Mono', monospace;
+    
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+    
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s ease;
+}
+
+/* ============================================
+   GLOBAL RESET & BASE STYLES
+   ============================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-mono);
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+}
+
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-tech);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-neon-green);
+    text-shadow: 0 0 10px var(--color-neon-green);
+}
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.5rem; }
+
+p {
+    margin-bottom: var(--spacing-sm);
+}
+
+/* ============================================
+   GLITCH TEXT EFFECT
+   ============================================ */
+
+.glitch-text {
+    position: relative;
+    display: inline-block;
+    animation: glitch-skew 3s infinite;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.glitch-text::before {
+    left: 2px;
+    text-shadow: -2px 0 var(--color-neon-cyan);
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim-1 2s infinite linear alternate-reverse;
+}
+
+.glitch-text::after {
+    left: -2px;
+    text-shadow: -2px 0 var(--color-neon-purple);
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim-2 2.5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim-1 {
+    0% { clip: rect(10px, 9999px, 20px, 0); }
+    5% { clip: rect(5px, 9999px, 25px, 0); }
+    10% { clip: rect(15px, 9999px, 10px, 0); }
+    15% { clip: rect(20px, 9999px, 5px, 0); }
+    20% { clip: rect(8px, 9999px, 22px, 0); }
+    100% { clip: rect(8px, 9999px, 22px, 0); }
+}
+
+@keyframes glitch-anim-2 {
+    0% { clip: rect(8px, 9999px, 22px, 0); }
+    5% { clip: rect(20px, 9999px, 5px, 0); }
+    10% { clip: rect(5px, 9999px, 25px, 0); }
+    15% { clip: rect(10px, 9999px, 20px, 0); }
+    20% { clip: rect(15px, 9999px, 10px, 0); }
+    100% { clip: rect(15px, 9999px, 10px, 0); }
+}
+
+@keyframes glitch-skew {
+    0% { transform: skew(0deg); }
+    10% { transform: skew(-2deg); }
+    20% { transform: skew(2deg); }
+    30% { transform: skew(0deg); }
+    100% { transform: skew(0deg); }
+}
+
+/* ============================================
+   SCANLINE EFFECT
+   ============================================ */
+
+.scanline {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        to bottom,
+        transparent 50%,
+        rgba(0, 255, 65, 0.03) 50%
+    );
+    background-size: 100% 4px;
+    pointer-events: none;
+    animation: scanline-move 8s linear infinite;
+    z-index: 1000;
+}
+
+.scanline-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 255, 65, 0.02) 2px,
+        rgba(0, 255, 65, 0.02) 4px
+    );
+    pointer-events: none;
+    z-index: 9999;
+}
+
+@keyframes scanline-move {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(100vh); }
+}
+
+/* ============================================
+   GLASSMORPHISM PANELS
+   ============================================ */
+
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: var(--spacing-md);
+    box-shadow: 
+        0 8px 32px rgba(0, 255, 65, 0.1),
+        inset 0 1px 1px rgba(255, 255, 255, 0.05);
+    transition: all var(--transition-normal);
+}
+
+.glass-panel:hover {
+    border-color: var(--color-neon-green);
+    box-shadow: 
+        0 8px 32px rgba(0, 255, 65, 0.3),
+        inset 0 1px 1px rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--color-neon-green), var(--color-neon-cyan));
+    color: var(--color-bg-primary);
+    border: none;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    font-family: var(--font-tech);
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all var(--transition-fast);
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary:hover {
+    box-shadow: 0 0 30px rgba(0, 255, 65, 0.8);
+    transform: translateY(-2px);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.btn-icon {
+    background: transparent;
+    border: 1px solid var(--color-neon-green);
+    color: var(--color-neon-green);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-icon:hover {
+    background: var(--color-neon-green);
+    color: var(--color-bg-primary);
+    box-shadow: 0 0 20px var(--color-neon-green);
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+
+.hidden {
+    display: none !important;
+}
+
+.active {
+    display: block;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mt-1 { margin-top: var(--spacing-sm); }
+.mt-2 { margin-top: var(--spacing-md); }
+.mt-3 { margin-top: var(--spacing-lg); }
+
+.mb-1 { margin-bottom: var(--spacing-sm); }
+.mb-2 { margin-bottom: var(--spacing-md); }
+.mb-3 { margin-bottom: var(--spacing-lg); }
+
+/* ============================================
+   SCROLLBAR STYLING
+   ============================================ */
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-neon-green);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-neon-cyan);
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 768px) {
+    html {
+        font-size: 14px;
+    }
+    
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.5rem; }
+    h3 { font-size: 1.25rem; }
+}

@@ -1,0 +1,140 @@
+/* ============================================
+   BOOTLOADER (BOOT SEQUENCE)
+   ============================================ */
+
+.bootloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: var(--color-bg-primary);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+}
+
+.bootloader.active {
+    display: flex;
+}
+
+.boot-container {
+    text-align: center;
+    max-width: 600px;
+    padding: var(--spacing-xl);
+}
+
+.boot-logo {
+    margin-bottom: var(--spacing-xl);
+}
+
+.boot-logo i {
+    color: var(--color-neon-green);
+    animation: pulse 2s infinite;
+}
+
+.boot-logo h1 {
+    font-size: 3rem;
+    margin-top: var(--spacing-md);
+}
+
+/* ============================================
+   BOOT SEQUENCE TEXT
+   ============================================ */
+
+.boot-sequence {
+    text-align: left;
+    margin: var(--spacing-xl) 0;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+}
+
+.boot-line {
+    opacity: 0;
+    animation: fadeInLine 0.5s ease forwards;
+    margin-bottom: var(--spacing-xs);
+}
+
+.boot-line:nth-child(1) { animation-delay: 0.2s; }
+.boot-line:nth-child(2) { animation-delay: 0.6s; }
+.boot-line:nth-child(3) { animation-delay: 1s; }
+.boot-line:nth-child(4) { animation-delay: 1.4s; }
+.boot-line:nth-child(5) { animation-delay: 1.8s; }
+
+@keyframes fadeInLine {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.boot-line .prompt {
+    color: var(--color-neon-green);
+    font-weight: 700;
+    margin-right: var(--spacing-xs);
+}
+
+.boot-line .prompt.success {
+    color: var(--color-neon-cyan);
+    text-shadow: 0 0 10px var(--color-neon-cyan);
+}
+
+/* ============================================
+   BOOT PROGRESS BAR
+   ============================================ */
+
+.boot-progress {
+    margin-top: var(--spacing-xl);
+}
+
+.progress-bar {
+    width: 100%;
+    height: 30px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(0, 255, 65, 0.5);
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-neon-green), var(--color-neon-cyan));
+    width: 0;
+    transition: width 0.3s ease;
+    box-shadow: 0 0 20px var(--color-neon-green);
+    position: relative;
+}
+
+.progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.progress-text {
+    margin-top: var(--spacing-sm);
+    color: var(--color-neon-green);
+    font-weight: 700;
+    text-align: center;
+}

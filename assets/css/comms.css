@@ -1,0 +1,165 @@
+/* ============================================
+   MODULE C: COMMS (ENCRYPTED CHAT)
+   ============================================ */
+
+.comms-panel {
+    position: fixed;
+    top: 0;
+    right: -400px;
+    width: 400px;
+    height: 100vh;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border-left: 1px solid var(--glass-border);
+    box-shadow: -5px 0 30px rgba(0, 255, 65, 0.2);
+    transition: right var(--transition-normal);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+}
+
+.comms-panel.open {
+    right: 0;
+}
+
+/* ============================================
+   COMMS HEADER
+   ============================================ */
+
+.comms-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md);
+    border-bottom: 1px solid rgba(0, 255, 65, 0.2);
+}
+
+.comms-header h3 {
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+#toggleComms {
+    transition: transform var(--transition-fast);
+}
+
+.comms-panel.open #toggleComms {
+    transform: rotate(180deg);
+}
+
+/* ============================================
+   COMMS BODY (MESSAGE LIST)
+   ============================================ */
+
+.comms-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--spacing-md);
+}
+
+.message-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.message {
+    background: rgba(0, 0, 0, 0.5);
+    padding: var(--spacing-sm);
+    border-radius: 8px;
+    border-left: 3px solid var(--color-neon-green);
+    animation: fadeInMessage 0.3s ease;
+}
+
+@keyframes fadeInMessage {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.message-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-xs);
+}
+
+.message-sender {
+    color: var(--color-neon-green);
+    font-weight: 700;
+    font-size: 0.85rem;
+}
+
+.message-time {
+    color: var(--color-text-secondary);
+    font-size: 0.75rem;
+}
+
+.message-content {
+    color: var(--color-text-primary);
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+/* Typewriter effect */
+.message-content.typing {
+    overflow: hidden;
+    border-right: 2px solid var(--color-neon-green);
+    white-space: nowrap;
+    animation: typing 2s steps(40, end), blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent; }
+    50% { border-color: var(--color-neon-green); }
+}
+
+/* ============================================
+   COMMS FOOTER (INPUT)
+   ============================================ */
+
+.comms-footer {
+    display: flex;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md);
+    border-top: 1px solid rgba(0, 255, 65, 0.2);
+}
+
+#messageInput {
+    flex: 1;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(0, 255, 65, 0.3);
+    color: var(--color-text-primary);
+    padding: var(--spacing-sm);
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    border-radius: 4px;
+}
+
+#messageInput:focus {
+    outline: none;
+    border-color: var(--color-neon-green);
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+    .comms-panel {
+        width: 100%;
+        right: -100%;
+    }
+}
